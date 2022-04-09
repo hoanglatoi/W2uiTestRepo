@@ -1,0 +1,48 @@
+{
+  "TablePages": [
+    {
+      "ScreenName": "alldata",
+      "Id": 1,
+      "PageNum": 1,
+      "Property1": "",
+      "Property2": "",
+      "Property3": "",
+      "ColNames": [
+        "col1",
+        "col2",
+        "col3"
+      ]
+    },
+    {
+      "ScreenName": "alldata",
+      "Id": 1,
+      "PageNum": 2,
+      "Property1": "",
+      "Property2": "",
+      "Property3": "",
+      "ColNames": [
+        "col1",
+        "col2",
+        "col3",
+        "col3",
+        "col3",
+        "col8"
+      ]
+    },
+    {
+      "ScreenName": "record",
+      "Id": 2,
+      "PageNum": 1,
+      "Property1": "",
+      "Property2": "",
+      "Property3": "",
+      "ColNames": [
+        "col1",
+        "col2",
+        "col4",
+        "col5"
+      ]
+    }
+ 
+  ]
+}

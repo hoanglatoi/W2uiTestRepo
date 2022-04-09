@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script>
+    var config = {
+    grid: {
+        name   : 'grid',
+        columns: [
+             { recid: 'recid', text: 'recid', size: '0%', hidden: true },
+            { field: '1', text: 'First Name', size: '30%' },
+            { field: '2', text: 'Last Name', size: '30%' },
+            { field: '3', text: 'Email', size: '40%' },
+            { field: '4', text: 'Start Date', size: '120px' },
+        ],
+        records: [
+            //{ recid: 1, 1: '1', 2: 'Doe', 3: 'jdoe@gmail.com', 4: '4/3/2012' }
+        ]
+    }
+};
+
+    // Shorthand for $( document ).ready()
+$(function() {
+        console.log( "ready!" );
+        $().w2grid(config.grid);
+        // display grid
+        $('#myGrid').w2render('grid');         
+});
+
+function LoadScreen(){
+    GetInfoScreen();
+    //console.log(styleScreen);
+    console.log(w2ui['grid'].columns.length);
+
+    // remove all col
+    var colNum = w2ui['grid'].columns.length - 1;
+    for(var i = 0; i < colNum; i++){
+        w2ui['grid'].removeColumn(w2ui['grid'].columns[w2ui['grid'].columns.length-1].field);
+    }
+    // add col
+    for(var i = 0; i < styleScreen.length; i++){
+             w2ui['grid'].addColumn("recid", [
+            { field: i.toString(), text: styleScreen[i]}
+        ]);
+    }  
+
+    //console.log(w2ui['grid']);
+    //w2ui['grid'].reset();
+    // get data   
+    GetData();
+    w2ui['grid'].clear();
+    w2ui['grid'].add(dataScreen);
+}
+
+</script>
+
+<div>
+    <h2>Department List</h2>
+    <div id="myGrid" style="width: 100%; height: 350px;"></div>
+</div>
+
+

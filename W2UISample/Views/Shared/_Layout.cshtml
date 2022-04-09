@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script> 
+        var typeScreen = "table";
+        var nameScreen = "alldata"
+        var styleScreen;
+        var dataScreen;
+        var idScreen = 1;
+        var pageNum = 1;
+    </script>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - W2UISample</title>
+    
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/W2UISample.styles.css" asp-append-version="true" />
+    @*<link ref="stylesheet" type="text/css" href="~/css/w2ui-1.5.min.css" />*@
+    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.5.min.css" />
+
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/w2ui-1.5.js"></script>
+  
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">W2UISample</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>*@
+                            <div id="homebtn" class="nav-link text-dark, btn" asp-area="" >Home</div>
+                        </li>
+                        <li class="nav-item">
+                            @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+                            <div id="privacybtn" class="nav-link text-dark, btn" asp-area="" >Privacy</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - W2UISample - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(document).ready(function() {
+            $('#homebtn').on('click', function (e) {
+                 nameScreen = "alldata" ;
+                 idScreen = 1;
+                 if(pageNum == 2){
+                     pageNum = 1;
+                 }else{
+                     pageNum++;
+                 }
+                 LoadScreen();
+            });   
+            $('#privacybtn').on('click', function (e) {
+                nameScreen = "record";
+                pageNum = 1;
+                LoadScreen();
+            }); 
+
+            LoadScreen();
+        });
+
+    function GetInfoScreen(){
+        console.log("GetInfoScreen");
+        
+        $.ajax({
+            type: "POST",
+            url: "/Home/GetStyleScreen",
+            data: { "domain": nameScreen, "id" : idScreen, "pageNum" : pageNum},
+            async : false,
+            success: function (response) {
+                styleScreen = response;
+                console.log("styleScreen");
+                console.log(styleScreen);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function GetData(){
+        console.log("GetDataScreen");
+        
+        $.ajax({
+            type: "POST",
+            url: "/Home/GetDataScreen",
+            data: { "domain": nameScreen, "id" : idScreen, "pageNum" : pageNum},
+            async : false,
+            success: function (response) {
+                dataScreen = response;
+                console.log("dataScreen");
+                console.log(dataScreen);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+    </script>
+</body>
+</html>
